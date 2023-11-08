@@ -1,14 +1,15 @@
 import tkinter as tk
 import threading
+import random
 from socket import *
 
 
-class DarkSouls:
+class Randomaizer:
     # Иницииализация приложения сервера
     def __init__(self):
         self.win = tk.Tk()
-        self.win.title('DarkSoulsDie?')
-        self.win.geometry("256x256+200+100")
+        self.win.title('Random Number')
+        self.win.geometry("500x500+150+50")
         self.win.config(bg='#D8BFD8')
 
         self.setup()
@@ -21,12 +22,12 @@ class DarkSouls:
         server.listen()
 
         user, addr = server.accept()
-        #Отображение изменений на сервере, при клиентском запросе
+        # Отображение изменений серверного окна после клиентского запроса
         while True:
-            data = user.recv(1024)
+            data = user.recv(1)
             if not data:
                 break
-            self.update_text()
+            self.update_data()
 
     # Создание рамки приложения
     def setup(self):
@@ -38,8 +39,9 @@ class DarkSouls:
         new_thread.start()
 
     # Реакция сервера на нажатие кнопки из клиентского приложения
-    def update_text(self):
-        text = tk.Label(self.win, width=9, height=4, background='#D8BFD8', text='YOU DIED', font="Times 35")
+    def update_data(self):
+        text = tk.Label(self.win, width=9, height=4,
+                        background='#D8BFD8', text=random.randint(1, 100), font="Times 35")
         text.place(relx=0.5, rely=0.5, anchor='center')
 
     def run(app):
@@ -48,5 +50,5 @@ class DarkSouls:
 
 
 if __name__ == "__main__":
-    app = DarkSouls()
+    app = Randomaizer()
     app.run()
