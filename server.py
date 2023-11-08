@@ -23,7 +23,7 @@ class DarkSouls:
         user, addr = server.accept()
         #Отображение изменений на сервере, при клиентском запросе
         while True:
-            data = user.recv(1)
+            data = user.recv(1024)
             if not data:
                 break
             self.update_text()
