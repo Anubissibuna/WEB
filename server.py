@@ -21,7 +21,11 @@ class DarkSouls:
         server.listen()
 
         user, addr = server.accept()
+        #Отображение изменений на сервере, при клиентском запросе
         while True:
+            data = user.recv(1)
+            if not data:
+                break
             self.update_text()
 
     # Создание рамки приложения
@@ -38,15 +42,8 @@ class DarkSouls:
         text = tk.Label(self.win, width=9, height=4, background='#D8BFD8', text='YOU DIED', font="Times 35")
         text.place(relx=0.5, rely=0.5, anchor='center')
 
-        # Попытка реализовать вечный двигатель(Не удалась успехом.)
-        btn = tk.Button(self.win, text='Rlly?', font="Times 35", width=4, height=2, command=self.click, bg='#EE82EE')
-        btn.place(relx=0.5, rely=0.5, side='bottom')
-        btn.focus()
-
-    def click(self):
-        self.client.send(bytes("\00", 'ascii'))
-
     def run(app):
+
         app.win.mainloop()
 
 
